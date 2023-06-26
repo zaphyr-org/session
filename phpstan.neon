@@ -1,0 +1,13 @@
+parameters:
+    phpVersion: 80100
+    level: 8
+    paths:
+        - src
+        - tests
+    parallel:
+        maximumNumberOfProcesses: 1
+    excludePaths:
+        - tests/report/*
+        - tests/TestAsset/*
+        - tests/Integration/TestAsset/*
+    ignoreErrors:

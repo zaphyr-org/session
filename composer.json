@@ -1,0 +1,59 @@
+{
+    "name": "zaphyr-org/session",
+    "description": "A session handler package including flash, input and CSRF protection.",
+    "keywords": [
+        "session",
+        "session handler",
+        "CSRF",
+        "flash",
+        "input"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "merloxx",
+            "email": "merloxx@zaphyr.org",
+            "homepage": "https://merloxx.it",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "zaphyr-org/encrypt": "^2.0",
+        "zaphyr-org/utils": "^2.1"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.10",
+        "phpstan/phpstan-phpunit": "^1.2",
+        "phpunit/phpunit": "^10.0",
+        "roave/security-advisories": "dev-latest",
+        "squizlabs/php_codesniffer": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Zaphyr\\Session\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Zaphyr\\SessionTests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "cs": "vendor/bin/phpcs --standard=PSR12 -n src",
+        "cbf": "vendor/bin/phpcbf --standard=PSR12 -n src",
+        "unit": "vendor/bin/phpunit --colors=always",
+        "phpstan": "vendor/bin/phpstan analyse --memory-limit 512M",
+        "test": [
+            "@unit",
+            "@phpstan",
+            "@cs"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
