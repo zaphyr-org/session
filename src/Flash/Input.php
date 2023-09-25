@@ -9,6 +9,7 @@ use Zaphyr\Utils\Arr;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>
+*  @internal This class is not part of the public API of this package and may change at any time without notice
  */
 class Input
 {
