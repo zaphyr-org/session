@@ -3,12 +3,5 @@ parameters:
     level: 8
     paths:
         - src
-        - tests
     parallel:
         maximumNumberOfProcesses: 1
-    excludePaths:
-        - tests/report/*
-        - tests/TestAsset/*
-        - tests/Integration/TestAsset/*
-    ignoreErrors:
-        - '%Parameter #1 \$string of function strlen expects string, string\|null given.%'
