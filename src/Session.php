@@ -18,16 +18,6 @@ class Session implements SessionInterface
     /**
      * @var string
      */
-    protected string $name;
-
-    /**
-     * @var SessionHandlerInterface
-     */
-    protected SessionHandlerInterface $handler;
-
-    /**
-     * @var string
-     */
     protected string $id;
 
     /**
@@ -63,15 +53,12 @@ class Session implements SessionInterface
      * @param Input|null              $input
      */
     public function __construct(
-        string $name,
-        SessionHandlerInterface $handler,
+        protected string $name,
+        protected SessionHandlerInterface $handler,
         string|null $id = null,
         Flash|null $flash = null,
         Input|null $input = null
     ) {
-        $this->name = $name;
-        $this->handler = $handler;
-
         $this->setId($id);
 
         $this->flash = $flash ?? new Flash($this);
