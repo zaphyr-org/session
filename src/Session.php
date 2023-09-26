@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Zaphyr\Session;
 
 use SessionHandlerInterface;
+use Zaphyr\Session\Contracts\Flash\FlashInterface;
+use Zaphyr\Session\Contracts\Flash\InputInterface;
 use Zaphyr\Session\Contracts\SessionInterface;
 use Zaphyr\Session\Flash\Flash;
 use Zaphyr\Session\Flash\Input;
@@ -21,14 +23,14 @@ class Session implements SessionInterface
     protected string $id;
 
     /**
-     * @var Flash
+     * @var FlashInterface
      */
-    protected Flash $flash;
+    protected FlashInterface $flash;
 
     /**
-     * @var Input
+     * @var InputInterface
      */
-    protected Input $input;
+    protected InputInterface $input;
 
     /**
      * @var bool
@@ -49,15 +51,15 @@ class Session implements SessionInterface
      * @param string                  $name
      * @param SessionHandlerInterface $handler
      * @param string|null             $id
-     * @param Flash|null              $flash
-     * @param Input|null              $input
+     * @param FlashInterface|null     $flash
+     * @param InputInterface|null     $input
      */
     public function __construct(
         protected string $name,
         protected SessionHandlerInterface $handler,
         string|null $id = null,
-        Flash|null $flash = null,
-        Input|null $input = null
+        FlashInterface|null $flash = null,
+        InputInterface|null $input = null
     ) {
         $this->setId($id);
 

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Zaphyr\Session\Flash;
 
+use Zaphyr\Session\Contracts\Flash\FlashInterface;
 use Zaphyr\Session\Contracts\SessionInterface;
 
 /**
- * @author   merloxx <merloxx@zaphyr.org>
- * @internal This class is not part of the public API of this package and may change at any time without notice
+ * @author merloxx <merloxx@zaphyr.org>
  */
-class Flash
+class Flash implements FlashInterface
 {
     /**
      * @const string
@@ -30,10 +30,7 @@ class Flash
     }
 
     /**
-     * @param string $key
-     * @param mixed  $value
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function set(string $key, mixed $value = true): void
     {
@@ -44,10 +41,7 @@ class Flash
     }
 
     /**
-     * @param string $key
-     * @param mixed  $value
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function now(string $key, mixed $value): void
     {
@@ -64,7 +58,7 @@ class Flash
     }
 
     /**
-     * @return void
+     * {@inheritdoc}
      */
     public function reflash(): void
     {
@@ -74,9 +68,7 @@ class Flash
     }
 
     /**
-     * @param string[] $keys
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function keep(array $keys = []): void
     {
@@ -94,7 +86,7 @@ class Flash
     }
 
     /**
-     * @return void
+     * {@inheritdoc}
      */
     public function clear(): void
     {

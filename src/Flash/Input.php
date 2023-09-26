@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Zaphyr\Session\Flash;
 
+use Zaphyr\Session\Contracts\Flash\FlashInterface;
+use Zaphyr\Session\Contracts\Flash\InputInterface;
 use Zaphyr\Session\Contracts\SessionInterface;
 use Zaphyr\Utils\Arr;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>
-*  @internal This class is not part of the public API of this package and may change at any time without notice
  */
-class Input
+class Input implements InputInterface
 {
     /**
      * @const string
@@ -20,16 +21,14 @@ class Input
 
     /**
      * @param SessionInterface $session
-     * @param Flash            $flash
+     * @param FlashInterface   $flash
      */
-    public function __construct(protected SessionInterface $session, protected Flash $flash)
+    public function __construct(protected SessionInterface $session, protected FlashInterface $flash)
     {
     }
 
     /**
-     * @param array<string, mixed> $values
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function set(array $values): void
     {
@@ -37,10 +36,7 @@ class Input
     }
 
     /**
-     * @param string|null $key
-     * @param mixed       $default
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
     public function get(string|null $key = null, mixed $default = null): mixed
     {
@@ -48,9 +44,7 @@ class Input
     }
 
     /**
-     * @param string|null $key
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function has(string|null $key = null): bool
     {
