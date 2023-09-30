@@ -44,6 +44,20 @@ class SessionTest extends TestCase
     }
 
     /* ------------------------------------------
+     * CONSTRUCTOR
+     * ------------------------------------------
+     */
+
+    public function testConstructorAndGetterMethods(): void
+    {
+        $session = new Session($this->sessionName, $this->sessionHandlerMock, $this->sessionId);
+
+        self::assertEquals($this->sessionName, $session->getName());
+        self::assertInstanceOf(SessionHandlerInterface::class, $session->getHandler());
+        self::assertEquals($this->sessionId, $session->getId());
+    }
+
+    /* ------------------------------------------
      * START
      * ------------------------------------------
      */
@@ -177,6 +191,31 @@ class SessionTest extends TestCase
     }
 
     /* ------------------------------------------
+     * ADD
+     * ------------------------------------------
+     */
+
+    public function testAdd(): void
+    {
+        self::assertNull($this->session->get('foo'));
+
+        $this->session->add('foo', 'bar');
+
+        self::assertEquals(['bar'], $this->session->get('foo'));
+    }
+
+    public function testAddConvertsStringValueToArrayIfItemAlreadyExists(): void
+    {
+        $this->session->set('foo', 'bar');
+
+        self::assertEquals('bar', $this->session->get('foo'));
+
+        $this->session->add('foo', 'baz');
+
+        self::assertEquals(['bar', 'baz'], $this->session->get('foo'));
+    }
+
+    /* ------------------------------------------
      * HAS
      * ------------------------------------------
      */
@@ -188,6 +227,36 @@ class SessionTest extends TestCase
         $this->session->set('foo', 'bar');
 
         self::assertTrue($this->session->has('foo'));
+    }
+
+    /* ------------------------------------------
+    * REMOVE
+    * ------------------------------------------
+    */
+
+    public function testRemove(): void
+    {
+        $this->session->set('foo', 'bar');
+
+        self::assertTrue($this->session->has('foo'));
+
+        $this->session->remove('foo');
+
+        self::assertFalse($this->session->has('foo'));
+    }
+
+    public function testRemoveMultiple(): void
+    {
+        $this->session->set('foo', 'bar');
+        $this->session->set('bar', 'baz');
+
+        self::assertTrue($this->session->has('foo'));
+        self::assertTrue($this->session->has('bar'));
+
+        $this->session->removeMultiple(['foo', 'bar']);
+
+        self::assertFalse($this->session->has('foo'));
+        self::assertFalse($this->session->has('bar'));
     }
 
     /* ------------------------------------------
@@ -248,6 +317,17 @@ class SessionTest extends TestCase
             ->method('destroy');
 
         self::assertTrue($this->session->regenerate());
+        self::assertNotSame($oldId, $this->session->getId());
+    }
+
+    public function testRegenerateCanDestroySession(): void
+    {
+        $oldId = $this->session->getId();
+        $this->sessionHandlerMock->expects(self::once())
+            ->method('destroy')
+            ->with($oldId);
+
+        self::assertTrue($this->session->regenerate(true));
         self::assertNotSame($oldId, $this->session->getId());
     }
 
