@@ -22,7 +22,6 @@
         "ext-ctype": "*",
         "doctrine/dbal": "^3.7",
         "psr/http-message": "^2.0",
-        "zaphyr-org/cookie": "^1.0",
         "zaphyr-org/encrypt": "^2.0",
         "zaphyr-org/utils": "^2.1"
     },
