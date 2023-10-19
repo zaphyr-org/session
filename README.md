@@ -6,7 +6,7 @@
 
 # Session
 
-A session handler package including flash, input and CSRF protection.
+A session handler repository for maintaining user state across multiple requests.
 
 ## System Requirements
 

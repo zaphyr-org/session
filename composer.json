@@ -1,6 +1,6 @@
 {
     "name": "zaphyr-org/session",
-    "description": "A session handler package including flash, input and CSRF protection.",
+    "description": "A session handler repository for maintaining user state across multiple requests.",
     "keywords": [
         "session",
         "session handler",
@@ -31,6 +31,11 @@
         "phpunit/phpunit": "^10.0",
         "roave/security-advisories": "dev-latest",
         "squizlabs/php_codesniffer": "^4.0"
+    },
+    "suggest": {
+        "zaphyr-org/cookie": "Small repository for handling cookies.",
+        "zaphyr-org/http-emitter": "Emits PSR-7 responses to the PHP Server API.",
+        "zaphyr-org/http-message": "Lightweight and strict implementation of PSR-7 HTTP Message including PSR-17 HTTP Factories."
     },
     "autoload": {
         "psr-4": {
