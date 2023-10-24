@@ -32,13 +32,13 @@ class SessionTest extends TestCase
      */
     protected Session $session;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->sessionHandlerMock = $this->createMock(SessionHandlerInterface::class);
         $this->session = new Session($this->sessionName, $this->sessionHandlerMock, $this->sessionId);
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         unset($this->sessionHandlerMock, $this->session);
     }

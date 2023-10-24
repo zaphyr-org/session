@@ -38,7 +38,7 @@ class EncryptedSessionTest extends TestCase
      */
     protected EncryptedSession $session;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->sessionHandlerMock = $this->createMock(SessionHandlerInterface::class);
         $this->encryptorMock = $this->createMock(EncryptInterface::class);
@@ -51,7 +51,7 @@ class EncryptedSessionTest extends TestCase
         );
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         unset($this->sessionHandlerMock, $this->encryptorMock, $this->session);
     }

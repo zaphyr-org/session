@@ -30,7 +30,7 @@ class FileHandlerTest extends TestCase
      */
     protected FileHandler $fileHandler;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->tempFileId = '1';
         $this->tempDir = __DIR__ . '/session/';
@@ -47,7 +47,7 @@ class FileHandlerTest extends TestCase
         $this->fileHandler = new FileHandler($this->tempDir);
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         File::deleteDirectory($this->tempDir);
         unset($this->fileHandler);

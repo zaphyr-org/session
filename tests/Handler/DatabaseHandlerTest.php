@@ -34,14 +34,14 @@ class DatabaseHandlerTest extends TestCase
      */
     protected int $minutes = 60;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->connectionMock = $this->createMock(Connection::class);
         $this->queryBuilderMock = $this->createMock(QueryBuilder::class);
         $this->dbHandler = new DatabaseHandler($this->connectionMock, minutes: $this->minutes);
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         unset($this->connectionMock, $this->queryBuilderMock, $this->dbHandler);
     }

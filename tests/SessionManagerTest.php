@@ -24,7 +24,7 @@ class SessionManagerTest extends TestCase
      */
     protected string $sessionName = 'zaphyr_session';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->sessionManager = new SessionManager(
             $this->sessionName,
@@ -42,7 +42,7 @@ class SessionManagerTest extends TestCase
         );
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         unset($this->sessionManager);
     }
