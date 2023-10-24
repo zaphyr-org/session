@@ -127,6 +127,22 @@ class SessionManagerTest extends TestCase
         self::assertInstanceOf(EncryptedSession::class, $sessionManager->session());
     }
 
+    public function testSessionReturnsSameInstanceWhenAlreadyCreated(): void
+    {
+        $sessionManager = new SessionManager(
+            $this->sessionName,
+            [
+                'file' => [
+                    'path' => __DIR__,
+                ],
+            ]
+        );
+
+        $session = $sessionManager->session();
+
+        self::assertSame($session, $sessionManager->session());
+    }
+
     public function testSessionThrowsExceptionOnMissingFileHandlerConfiguration(): void
     {
         $this->expectException(SessionException::class);

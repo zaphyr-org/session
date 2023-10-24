@@ -31,7 +31,7 @@ class SessionManager implements SessionManagerInterface
     public const FILE_HANDLER = 'file';
 
     /**
-     * @var array<string, SessionHandlerInterface>
+     * @var array<string, SessionInterface>
      */
     protected array $handlers = [];
 
@@ -64,12 +64,10 @@ class SessionManager implements SessionManagerInterface
         $handler = $handler ?: $this->defaultHandler;
 
         if (!isset($this->handlers[$handler])) {
-            $this->createHandler($handler);
+            $this->handlers[$handler] = $this->createHandler($handler);
         }
 
-        return $this->encryptor
-            ? new EncryptedSession($this->sessionName, $this->handlers[$handler], $this->encryptor)
-            : new Session($this->sessionName, $this->handlers[$handler]);
+        return $this->handlers[$handler];
     }
 
     /**
@@ -98,11 +96,11 @@ class SessionManager implements SessionManagerInterface
      * @param string $handler
      *
      * @throws SessionException if the handler is not found or misconfigured
-     * @return void
+     * @return SessionInterface
      */
-    protected function createHandler(string $handler): void
+    protected function createHandler(string $handler): SessionInterface
     {
-        match ($handler) {
+        return match ($handler) {
             self::DATABASE_HANDLER => $this->createDatabaseHandler(),
             self::FILE_HANDLER => $this->createFileHandler(),
             default => $this->createCustomHandler($handler),
@@ -111,9 +109,9 @@ class SessionManager implements SessionManagerInterface
 
     /**
      * @throws SessionException if the database connection is not set or invalid
-     * @return void
+     * @return SessionInterface
      */
-    protected function createDatabaseHandler(): void
+    protected function createDatabaseHandler(): SessionInterface
     {
         try {
             $connection = $this->getConfig(self::DATABASE_HANDLER, 'connection');
@@ -124,37 +122,33 @@ class SessionManager implements SessionManagerInterface
 
         $options = $this->handlerConfig[self::DATABASE_HANDLER]['options'] ?? [];
 
-        $this->handlers[self::DATABASE_HANDLER] = new DatabaseHandler(
-            $driverConnection,
-            $options,
-            $this->sessionExpireMinutes
-        );
+        return $this->buildSession(new DatabaseHandler($driverConnection, $options, $this->sessionExpireMinutes));
     }
 
     /**
      * @throws SessionException if the file path is not set
-     * @return void
+     * @return SessionInterface
      */
-    protected function createFileHandler(): void
+    protected function createFileHandler(): SessionInterface
     {
         $path = $this->getConfig(self::FILE_HANDLER, 'path');
 
-        $this->handlers[self::FILE_HANDLER] = new FileHandler($path, $this->sessionExpireMinutes);
+        return $this->buildSession(new FileHandler($path, $this->sessionExpireMinutes));
     }
 
     /**
      * @param string $name
      *
      * @throws SessionException if the custom handler does not exist
-     * @return void
+     * @return SessionInterface
      */
-    protected function createCustomHandler(string $name): void
+    protected function createCustomHandler(string $name): SessionInterface
     {
         if (!isset($this->customHandlers[$name])) {
             throw new SessionException('Session handler with name "' . $name . '" does not exist');
         }
 
-        $this->handlers[$name] = $this->customHandlers[$name]();
+        return $this->buildSession($this->customHandlers[$name]());
     }
 
     /**
@@ -173,5 +167,19 @@ class SessionManager implements SessionManagerInterface
         }
 
         return $this->handlerConfig[$handler][$key];
+    }
+
+    /**
+     * @param SessionHandlerInterface $sessionHandler
+     *
+     * @return SessionInterface
+     */
+    protected function buildSession(SessionHandlerInterface $sessionHandler): SessionInterface
+    {
+        if ($this->encryptor instanceof EncryptInterface) {
+            return new EncryptedSession($this->sessionName, $sessionHandler, $this->encryptor);
+        }
+
+        return new Session($this->sessionName, $sessionHandler);
     }
 }
