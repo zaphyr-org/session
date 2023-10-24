@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\Session;
+namespace Zaphyr\SessionTest;
 
 use PHPUnit\Framework\TestCase;
 use Zaphyr\Encrypt\Encrypt;
+use Zaphyr\Session\EncryptedSession;
 use Zaphyr\Session\Exceptions\SessionException;
 use Zaphyr\Session\Handler\DatabaseHandler;
 use Zaphyr\Session\Handler\FileHandler;
+use Zaphyr\Session\SessionManager;
 
 class SessionManagerTest extends TestCase
 {
