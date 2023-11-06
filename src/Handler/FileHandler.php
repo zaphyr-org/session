@@ -79,11 +79,12 @@ class FileHandler implements SessionHandlerInterface
     public function gc(int $max_lifetime): int|false
     {
         $files = glob($this->storage . '*');
+        $expiry = time() - $max_lifetime;
         $deletedFiles = 0;
 
         if (is_array($files)) {
             foreach ($files as $file) {
-                if (filemtime($file) + $max_lifetime < time()) {
+                if (filemtime($file) <= $expiry) {
                     unlink($file);
                     $deletedFiles++;
                 }

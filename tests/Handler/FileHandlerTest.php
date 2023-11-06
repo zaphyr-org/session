@@ -131,8 +131,13 @@ class FileHandlerTest extends TestCase
      * ------------------------------------------
      */
 
-    public function testGc(): void
+    public function testGcReturnsFalseWhenNoItemsDeleted(): void
     {
-        self::assertFalse($this->fileHandler->gc(0));
+        self::assertFalse($this->fileHandler->gc(60));
+    }
+
+    public function testGcReturnsAmountOfDeletedItems(): void
+    {
+        self::assertEquals(1, $this->fileHandler->gc(0));
     }
 }
