@@ -205,12 +205,50 @@ class SessionManagerTest extends TestCase
         );
     }
 
-    public function testAddHandlerThrowsExceptionWhenHandlerNameIsAlreadyRegistered(): void
+    public function testAddHandlerWithForce(): void
+    {
+        $this->sessionManager->addHandler('custom_handler', function () {
+            return new ArrayHandler(0);
+        });
+
+        $this->sessionManager->addHandler('custom_handler', function () {
+            return new FileHandler(__DIR__);
+        }, true);
+
+        self::assertInstanceOf(
+            FileHandler::class,
+            $this->sessionManager->session('file')->getHandler()
+        );
+    }
+
+    public function testAddHandlerThrowsExceptionIfHandlerNameIsAlreadyRegistered(): void
     {
         $this->expectException(SessionException::class);
 
         $this->sessionManager->addHandler('file', function () {
             return new FileHandler(__DIR__);
         });
+    }
+
+    public function testAddHandlerThrowsExceptionIfCustomHandlerNameIsAlreadyRegistered(): void
+    {
+        $this->expectException(SessionException::class);
+
+        $this->sessionManager
+            ->addHandler('custom_handler', function () {
+                return new FileHandler(__DIR__);
+            })
+            ->addHandler('custom_handler', function () {
+                return new FileHandler(__DIR__);
+            });
+    }
+
+    public function testAddHandlerForceDoesNotWorkOnDefaultHandlers(): void
+    {
+        $this->expectException(SessionException::class);
+
+        $this->sessionManager->addHandler('file', function () {
+            return new ArrayHandler(0);
+        }, true);
     }
 }

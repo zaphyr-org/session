@@ -79,9 +79,12 @@ class SessionManager implements SessionManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function addHandler(string $name, Closure $callback): static
+    public function addHandler(string $name, Closure $callback, bool $force = false): static
     {
-        if (in_array($name, [self::DATABASE_HANDLER, self::FILE_HANDLER], true)) {
+        if (
+            !$force && isset($this->customHandlers[$name])
+            || in_array($name, [self::ARRAY_HANDLER, self::DATABASE_HANDLER, self::FILE_HANDLER], true)
+        ) {
             throw new SessionException('Session handler with name "' . $name . '" already exists');
         }
 
