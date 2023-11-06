@@ -12,6 +12,7 @@ use Zaphyr\Encrypt\Contracts\EncryptInterface;
 use Zaphyr\Session\Contracts\SessionInterface;
 use Zaphyr\Session\Contracts\SessionManagerInterface;
 use Zaphyr\Session\Exceptions\SessionException;
+use Zaphyr\Session\Handler\ArrayHandler;
 use Zaphyr\Session\Handler\DatabaseHandler;
 use Zaphyr\Session\Handler\FileHandler;
 
@@ -20,6 +21,11 @@ use Zaphyr\Session\Handler\FileHandler;
  */
 class SessionManager implements SessionManagerInterface
 {
+    /**
+     * @const string
+     */
+    public const ARRAY_HANDLER = 'array';
+
     /**
      * @const string
      */
@@ -101,10 +107,19 @@ class SessionManager implements SessionManagerInterface
     protected function createHandler(string $handler): SessionInterface
     {
         return match ($handler) {
+            self::ARRAY_HANDLER => $this->createArrayHandler(),
             self::DATABASE_HANDLER => $this->createDatabaseHandler(),
             self::FILE_HANDLER => $this->createFileHandler(),
             default => $this->createCustomHandler($handler),
         };
+    }
+
+    /**
+     * @return SessionInterface
+     */
+    protected function createArrayHandler(): SessionInterface
+    {
+        return $this->buildSession(new ArrayHandler($this->sessionExpireMinutes));
     }
 
     /**

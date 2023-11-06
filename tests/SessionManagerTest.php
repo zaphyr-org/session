@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Zaphyr\Encrypt\Encrypt;
 use Zaphyr\Session\EncryptedSession;
 use Zaphyr\Session\Exceptions\SessionException;
+use Zaphyr\Session\Handler\ArrayHandler;
 use Zaphyr\Session\Handler\DatabaseHandler;
 use Zaphyr\Session\Handler\FileHandler;
 use Zaphyr\Session\SessionManager;
@@ -76,6 +77,14 @@ class SessionManagerTest extends TestCase
     public function testSessionReturnsDefaultHandler(): void
     {
         self::assertInstanceOf(FileHandler::class, $this->sessionManager->session()->getHandler());
+    }
+
+    public function testSessionReturnsArrayHandler(): void
+    {
+        self::assertInstanceOf(
+            ArrayHandler::class,
+            $this->sessionManager->session('array')->getHandler()
+        );
     }
 
     public function testSessionReturnsFileHandler(): void
