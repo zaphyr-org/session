@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\SessionTests\Handler;
+namespace Zaphyr\SessionTests\Unit\Handler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
@@ -38,6 +38,7 @@ class DatabaseHandlerTest extends TestCase
     {
         $this->connectionMock = $this->createMock(Connection::class);
         $this->queryBuilderMock = $this->createMock(QueryBuilder::class);
+
         $this->dbHandler = new DatabaseHandler($this->connectionMock, minutes: $this->minutes);
     }
 
@@ -53,7 +54,7 @@ class DatabaseHandlerTest extends TestCase
 
     public function testOpenReturnsTrue(): void
     {
-        $this->assertTrue($this->dbHandler->open('', ''));
+        self::assertTrue($this->dbHandler->open('', ''));
     }
 
     /* -------------------------------------------------
@@ -63,7 +64,7 @@ class DatabaseHandlerTest extends TestCase
 
     public function testCloseReturnsTrue(): void
     {
-        $this->assertTrue($this->dbHandler->close());
+        self::assertTrue($this->dbHandler->close());
     }
 
     /* -------------------------------------------------
@@ -168,7 +169,7 @@ class DatabaseHandlerTest extends TestCase
             ->method('createQueryBuilder')
             ->willThrowException(new Exception());
 
-        $this->assertFalse($this->dbHandler->read('id'));
+        self::assertFalse($this->dbHandler->read('id'));
     }
 
     /* -------------------------------------------------
@@ -242,7 +243,7 @@ class DatabaseHandlerTest extends TestCase
             ->expects(self::once())
             ->method('rollBack');
 
-        $this->assertFalse($this->dbHandler->write('id', 'data'));
+        self::assertFalse($this->dbHandler->write('id', 'data'));
     }
 
     /* -------------------------------------------------
@@ -291,7 +292,7 @@ class DatabaseHandlerTest extends TestCase
             ->method('createQueryBuilder')
             ->willThrowException(new Exception());
 
-        $this->assertFalse($this->dbHandler->destroy('id'));
+        self::assertFalse($this->dbHandler->destroy('id'));
     }
 
     /* -------------------------------------------------
@@ -342,6 +343,6 @@ class DatabaseHandlerTest extends TestCase
             ->method('createQueryBuilder')
             ->willThrowException(new Exception());
 
-        $this->assertFalse($this->dbHandler->gc(0));
+        self::assertFalse($this->dbHandler->gc(0));
     }
 }

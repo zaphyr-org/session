@@ -117,7 +117,7 @@ class DatabaseHandler implements SessionHandlerInterface
             $this->connection->commit();
 
             return true;
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             $this->connection->rollBack();
 
             return false;

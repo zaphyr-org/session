@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\SessionTests;
+namespace Zaphyr\SessionTests\Unit;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -35,6 +35,7 @@ class SessionTest extends TestCase
     protected function setUp(): void
     {
         $this->sessionHandlerMock = $this->createMock(SessionHandlerInterface::class);
+
         $this->session = new Session($this->sessionName, $this->sessionHandlerMock, $this->sessionId);
     }
 

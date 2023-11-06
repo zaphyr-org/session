@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\SessionTests\Handler;
+namespace Zaphyr\SessionTests\Unit\Handler;
 
 use PHPUnit\Framework\TestCase;
 use Zaphyr\Session\Handler\FileHandler;

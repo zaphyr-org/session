@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\SessionTests;
+namespace Zaphyr\SessionTests\Unit;
 
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use SessionHandlerInterface;
 use Zaphyr\Encrypt\Contracts\EncryptInterface;
 use Zaphyr\Encrypt\Exceptions\DecryptException;
 use Zaphyr\Session\EncryptedSession;
-use PHPUnit\Framework\TestCase;
 
 class EncryptedSessionTest extends TestCase
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Handler;
+namespace Zaphyr\SessionTests\Unit\Handler;
 
 use PHPUnit\Framework\TestCase;
 use Zaphyr\Session\Handler\ArrayHandler;
