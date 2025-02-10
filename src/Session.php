@@ -162,7 +162,7 @@ class Session implements SessionInterface
      */
     public function setId(string|null $id): void
     {
-        $this->id = $this->isValidId($id) ? $id : $this->generateId();
+        $this->id = $this->isValidId($id) ? (string)$id : $this->generateId();
     }
 
     /**

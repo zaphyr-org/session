@@ -5,7 +5,3 @@ parameters:
         - src
     parallel:
         maximumNumberOfProcesses: 1
-    ignoreErrors:
-        -
-            message: '%Property Zaphyr\\Session\\Session::\$id \(string\) does not accept string\|null.%'
-            path: src/Session.php
