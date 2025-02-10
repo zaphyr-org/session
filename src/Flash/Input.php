@@ -38,7 +38,7 @@ class Input implements InputInterface
     /**
      * {@inheritdoc}
      */
-    public function get(string|null $key = null, mixed $default = null): mixed
+    public function get(?string $key = null, mixed $default = null): mixed
     {
         return Arr::get($this->session->get(self::KEY, []), $key, $default);
     }
@@ -46,7 +46,7 @@ class Input implements InputInterface
     /**
      * {@inheritdoc}
      */
-    public function has(string|null $key = null): bool
+    public function has(?string $key = null): bool
     {
         $input = $this->get($key);
 

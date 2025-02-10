@@ -19,7 +19,7 @@ interface SessionManagerInterface
      * @return SessionInterface
      *
      */
-    public function session(string $handler = null): SessionInterface;
+    public function session(?string $handler = null): SessionInterface;
 
     /**
      * @param string  $name

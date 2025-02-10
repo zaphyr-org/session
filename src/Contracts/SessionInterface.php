@@ -29,7 +29,7 @@ interface SessionInterface
     /**
      * @return string|null
      */
-    public function getToken(): string|null;
+    public function getToken(): ?string;
 
     /**
      * @param string $token
@@ -48,7 +48,7 @@ interface SessionInterface
      *
      * @return void
      */
-    public function setId(string|null $id): void;
+    public function setId(?string $id): void;
 
     /**
      * @return string
@@ -182,14 +182,14 @@ interface SessionInterface
      *
      * @return mixed
      */
-    public function getOldInput(string|null $key = null, mixed $default = null): mixed;
+    public function getOldInput(?string $key = null, mixed $default = null): mixed;
 
     /**
      * @param string|null $key
      *
      * @return bool
      */
-    public function hasOldInput(string|null $key = null): bool;
+    public function hasOldInput(?string $key = null): bool;
 
     /**
      * @return void

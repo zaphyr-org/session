@@ -57,9 +57,9 @@ class Session implements SessionInterface
     public function __construct(
         protected string $name,
         protected SessionHandlerInterface $handler,
-        string|null $id = null,
-        FlashInterface|null $flash = null,
-        InputInterface|null $input = null
+        ?string $id = null,
+        ?FlashInterface $flash = null,
+        ?InputInterface $input = null
     ) {
         $this->setId($id);
 
@@ -126,7 +126,7 @@ class Session implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function getToken(): string|null
+    public function getToken(): ?string
     {
         return $this->get($this->tokenKey);
     }
@@ -160,7 +160,7 @@ class Session implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function setId(string|null $id): void
+    public function setId(?string $id): void
     {
         $this->id = $this->isValidId($id) ? (string)$id : $this->generateId();
     }
@@ -373,7 +373,7 @@ class Session implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function hasOldInput(string $key = null): bool
+    public function hasOldInput(?string $key = null): bool
     {
         return $this->input->has($key);
     }

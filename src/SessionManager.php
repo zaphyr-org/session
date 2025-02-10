@@ -58,14 +58,14 @@ class SessionManager implements SessionManagerInterface
         protected array $handlerConfig,
         protected int $sessionExpireMinutes = 60,
         protected string $defaultHandler = self::FILE_HANDLER,
-        protected EncryptInterface|null $encryptor = null
+        protected ?EncryptInterface $encryptor = null
     ) {
     }
 
     /**
      * {@inheritdoc}
      */
-    public function session(string $handler = null): SessionInterface
+    public function session(?string $handler = null): SessionInterface
     {
         $handler = $handler ?: $this->defaultHandler;
 

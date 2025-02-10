@@ -27,9 +27,9 @@ class EncryptedSession extends Session
         string $name,
         SessionHandlerInterface $handler,
         protected EncryptInterface $encryptor,
-        string|null $id = null,
-        Flash|null $flash = null,
-        Input|null $input = null
+        ?string $id = null,
+        ?Flash $flash = null,
+        ?Input $input = null
     ) {
         parent::__construct($name, $handler, $id, $flash, $input);
     }

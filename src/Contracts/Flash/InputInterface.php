@@ -22,12 +22,12 @@ interface InputInterface
      *
      * @return mixed
      */
-    public function get(string|null $key = null, mixed $default = null): mixed;
+    public function get(?string $key = null, mixed $default = null): mixed;
 
     /**
      * @param string|null $key
      *
      * @return bool
      */
-    public function has(string|null $key = null): bool;
+    public function has(?string $key = null): bool;
 }
