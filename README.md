@@ -22,7 +22,7 @@ composer require zaphyr-org/session
 
 ## Documentation
 
-You can read the full documentation [here](https://zaphyr.org/docs/1.x/repositories/session).
+You can read the full documentation [here](https://zaphyr.org/docs/repositories/latest/session).
 
 ## Changelog
 
@@ -30,7 +30,8 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Issues
 
-Bug reports and feature requests can be submitted on the [GitHub Issue Tracker](https://github.com/zaphyr-org/session/issues).
+Bug reports and feature requests can be submitted on
+the [GitHub Issue Tracker](https://github.com/zaphyr-org/session/issues).
 
 ## Security
 
