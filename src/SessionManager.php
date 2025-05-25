@@ -67,7 +67,7 @@ class SessionManager implements SessionManagerInterface
      */
     public function session(?string $handler = null): SessionInterface
     {
-        $handler = $handler ?: $this->defaultHandler;
+        $handler ??= $this->defaultHandler;
 
         if (!isset($this->handlers[$handler])) {
             $this->handlers[$handler] = $this->createHandler($handler);
@@ -82,7 +82,7 @@ class SessionManager implements SessionManagerInterface
     public function addHandler(string $name, Closure $callback, bool $force = false): static
     {
         if (
-            !$force && isset($this->customHandlers[$name])
+            (!$force && isset($this->customHandlers[$name]))
             || in_array($name, [self::ARRAY_HANDLER, self::DATABASE_HANDLER, self::FILE_HANDLER], true)
         ) {
             throw new SessionException('Session handler with name "' . $name . '" already exists');

@@ -149,7 +149,7 @@ class DatabaseHandler implements SessionHandlerInterface
     public function gc(int $max_lifetime): int|false
     {
         try {
-            return $this->connection
+            return (int)$this->connection
                 ->createQueryBuilder()
                 ->delete($this->table)
                 ->where($this->timeColumn . ' <= :time')
