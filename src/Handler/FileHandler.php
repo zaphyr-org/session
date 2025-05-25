@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Zaphyr\Session\Handler;
 
 use SessionHandlerInterface;
+use Zaphyr\Session\Exceptions\SessionException;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>
@@ -19,10 +20,26 @@ class FileHandler implements SessionHandlerInterface
     /**
      * @param string $path
      * @param int    $minutes
+     *
+     * @throws SessionException if the session directory cannot be created
      */
     public function __construct(string $path, protected int $minutes = 60)
     {
         $this->storage = rtrim($path, '\/') . '/';
+        $this->createSessionDirectory($this->storage);
+    }
+
+    /**
+     * @param string $directory
+     *
+     * @throws SessionException if the session directory cannot be created
+     * @return void
+     */
+    protected function createSessionDirectory(string $directory): void
+    {
+        if (!file_exists($directory) && !mkdir($directory, 0777, true) && !is_dir($directory)) {
+            throw new SessionException("Session directory $directory could not be created");
+        }
     }
 
     /**

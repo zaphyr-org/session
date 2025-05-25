@@ -13,7 +13,7 @@ class FileHandlerTest extends TestCase
     /**
      * @var string
      */
-    protected string $tempDir;
+    protected static string $tempDir = __DIR__ . '/session/';
 
     /**
      * @var string
@@ -30,27 +30,21 @@ class FileHandlerTest extends TestCase
      */
     protected FileHandler $fileHandler;
 
+    public static function tearDownAfterClass(): void
+    {
+        File::deleteDirectory(static::$tempDir);
+    }
+
     protected function setUp(): void
     {
         $this->tempFileId = '1';
-        $this->tempDir = __DIR__ . '/session/';
-        $this->tempFile = $this->tempDir . $this->tempFileId;
-
-        File::createDirectory($this->tempDir);
-        $file = fopen($this->tempFile, 'w');
-
-        if ($file !== false) {
-            fwrite($file, 'foo');
-            fclose($file);
-        }
-
-        $this->fileHandler = new FileHandler($this->tempDir);
+        $this->tempFile = static::$tempDir . $this->tempFileId;
+        $this->fileHandler = new FileHandler(static::$tempDir);
     }
 
     protected function tearDown(): void
     {
-        File::deleteDirectory($this->tempDir);
-        unset($this->fileHandler);
+        unset($this->tempFileId, $this->tempFile, $this->fileHandler);
     }
 
     /* ------------------------------------------
@@ -80,6 +74,8 @@ class FileHandlerTest extends TestCase
 
     public function testReadReturnsFileContent(): void
     {
+        $this->fileHandler->write($this->tempFileId, 'foo');
+
         self::assertEquals('foo', $this->fileHandler->read($this->tempFileId));
     }
 
@@ -104,7 +100,7 @@ class FileHandlerTest extends TestCase
         self::assertTrue($this->fileHandler->write($file = 'create', $expected = 'bar'));
         self::assertEquals($expected, $this->fileHandler->read($file));
 
-        unlink($this->tempDir . $file);
+        unlink(static::$tempDir . $file);
     }
 
     /* ------------------------------------------
@@ -116,7 +112,7 @@ class FileHandlerTest extends TestCase
     {
         $this->fileHandler->write($tempFileId = '2', 'baz');
 
-        self::assertFileExists($tempFile = $this->tempDir . $tempFileId);
+        self::assertFileExists($tempFile = static::$tempDir . $tempFileId);
         self::assertTrue($this->fileHandler->destroy($tempFileId));
         self::assertFileDoesNotExist($tempFile);
     }
