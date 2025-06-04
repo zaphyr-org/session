@@ -6,6 +6,7 @@ namespace Zaphyr\Session;
 
 use Closure;
 use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Tools\DsnParser;
 use SessionHandlerInterface;
 use Throwable;
 use Zaphyr\Encrypt\Contracts\EncryptInterface;
@@ -133,6 +134,11 @@ class SessionManager implements SessionManagerInterface
     {
         try {
             $connection = $this->getConfig(self::DATABASE_HANDLER, 'connection');
+
+            if (is_string($connection)) {
+                $connection = (new DsnParser())->parse($connection);
+            }
+
             $driverConnection = DriverManager::getConnection($connection);
         } catch (Throwable $exception) {
             throw new SessionException('Could not connect to database', 0, $exception);

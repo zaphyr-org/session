@@ -103,6 +103,21 @@ class SessionManagerTest extends TestCase
         );
     }
 
+    public function testDatabaseSessionWithConnectionUrl(): void
+    {
+        $sessionManager = new SessionManager(
+            $this->sessionName,
+            [
+                'database' => [
+                    'connection' => 'pdo-sqlite:' . __DIR__ . '/database.sqlite',
+                ],
+            ],
+            defaultHandler: SessionManager::DATABASE_HANDLER
+        );
+
+        self::assertInstanceOf(DatabaseHandler::class, $sessionManager->session()->getHandler());
+    }
+
     public function testSessionWithDifferentDefaultHandler(): void
     {
         $sessionManager = new SessionManager(
