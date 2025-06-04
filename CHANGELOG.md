@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## [v1.1.3](https://github.com/zaphyr-org/session/compare/1.1.2...1.1.3) [2025-06-04]
+
+### New:
+
+* Added connection URL (DSN) to database session manager
+
+### Fixed:
+
+* Fixed expiration time in `ArrayHandler::read` method
+
 ## [v1.1.2](https://github.com/zaphyr-org/session/compare/1.1.1...1.1.2) [2025-05-25]
 
 ### Changed:
