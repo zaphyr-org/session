@@ -48,9 +48,7 @@ class ArrayHandler implements SessionHandlerInterface
             return false;
         }
 
-        $expiry = time() + ($this->minutes * 60);
-
-        if ($this->storage[$id]['expiry'] <= $expiry) {
+        if ($this->storage[$id]['expiry'] >= time()) {
             return $this->storage[$id]['data'];
         }
 

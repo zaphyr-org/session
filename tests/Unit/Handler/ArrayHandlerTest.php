@@ -62,10 +62,12 @@ class ArrayHandlerTest extends TestCase
 
     public function testReadReturnsFalseIfItemExistsButIsExpired(): void
     {
+        Time::$now = 0;
+
         $arrayHandler = new ArrayHandler(0);
         $arrayHandler->write('foo', 'bar');
 
-        Time::$now = 0;
+        Time::$now = 1;
 
         self::assertFalse($arrayHandler->read('foo'));
     }
