@@ -1,8 +1,8 @@
-![License](https://img.shields.io/github/license/zaphyr-org/session?style=for-the-badge)
-![Version](https://img.shields.io/packagist/v/zaphyr-org/session?style=for-the-badge)
-![Downloads](https://img.shields.io/packagist/dt/zaphyr-org/session?style=for-the-badge)
-![Stars](https://img.shields.io/github/stars/zaphyr-org/session?style=for-the-badge)
-![Issues](https://img.shields.io/github/issues/zaphyr-org/session?style=for-the-badge)
+![License](https://img.shields.io/github/license/zaphyr-org/session)
+![Version](https://img.shields.io/packagist/v/zaphyr-org/session)
+![Issues](https://img.shields.io/github/issues/zaphyr-org/session)
+![Tests](https://github.com/zaphyr-org/session/actions/workflows/tests.yml/badge.svg)
+[![Codecov](https://codecov.io/github/zaphyr-org/session/graph/badge.svg?token=5E0SGGRJK7&)](https://codecov.io/github/zaphyr-org/session)
 
 # Session
 
@@ -10,7 +10,15 @@ A session handler repository for maintaining user state across multiple requests
 
 ## System Requirements
 
-You need `PHP => 8.1.0` but the latest stable version of PHP is recommended.
+You need `PHP => 8.1` but the latest stable version of PHP is recommended.
+
+This package is continuously tested on the following PHP versions:
+
+- PHP 8.1
+- PHP 8.2
+- PHP 8.3
+- PHP 8.4
+- PHP 8.5
 
 ## Installation
 
